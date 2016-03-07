@@ -1,0 +1,19 @@
+.productItem {
+  display: block;
+  padding: 1rem;
+  width: 8rem;
+  height: 2rem;
+  background: whitesmoke;
+  border-bottom: 2px solid gray;
+}
+
+.productItem button {
+  float: right;
+}
+
+.title {
+}
+
+.value:before {
+  content: ' - $'
+}
