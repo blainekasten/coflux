@@ -12,29 +12,28 @@ export default function provider(Component, store, children) {
 
       this.state = {
         store,
+        updatePaths: [],
       };
 
       injectStore(store);
-      listen(storeUpdate => this.setState({store: storeUpdate}));
-    }
-
-    shouldComponentUpdate() {
-      console.log('updating');
-      return true;
+      listen((storeUpdate, updatePaths) => this.setState({updatePaths, store: storeUpdate}));
     }
 
     static childContextTypes = {
       params: PropTypes.object.isRequired,
       router: PropTypes.object.isRequired,
       store: PropTypes.object.isRequired,
+      updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
     }
 
     getChildContext():Object {
-      const { params, router, store } = this.props;
+      const { params, router } = this.props;
+      const { store, updatePaths } = this.state;
       return {
         params,
         router,
         store,
+        updatePaths,
       }
     }
 

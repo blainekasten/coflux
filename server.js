@@ -15,11 +15,12 @@ const port = 53900;
 app.use(express.static('demos'));
 
 app.get('/api/products', (req, res) => {
-  res.send([
-    {title: 'foo', value: 12},
-    {title: 'bar', value: 40},
-  ]);
-
+  setTimeout(function() {
+    res.send([
+      {title: 'foo', value: 12},
+      {title: 'bar', value: 40},
+    ]);
+  }, 4200);
 });
 
 // initialize server

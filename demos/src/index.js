@@ -10,6 +10,10 @@ const store = {
   pharmacy: {
     products: [],
   },
+  user: {
+    firstName: 'Blaine',
+    lastName: 'Kasten',
+  },
 };
 
 ReactDOM.render(

@@ -16,6 +16,7 @@ import { setState, store } from './Store';
 import intersection from './intersection';
 
 let pendingUpdate = false;
+let updatePaths = [];
 
 export default function updateState(
   mapStateToProps:Object,
@@ -24,9 +25,17 @@ export default function updateState(
   //const stateUpdateObject:Object = intersection(updateObject, resolvePath(store)[resolveKey]);
   let emitListener:boolean = false;
 
+  const mappedStateToProps = mapStateToProps();
+
+
   for (const stateKeyToUpdate:string in stateUpdateObject) {
     if (stateUpdateObject.hasOwnProperty(stateKeyToUpdate)) {
       emitListener = true;
+
+      // track the updatePaths
+      updatePaths.push(
+        mappedStateToProps[stateKeyToUpdate]
+      );
 
       // optimistically update our store
       setState(
@@ -47,7 +56,9 @@ export default function updateState(
     requestAnimationFrame(() => {
       pendingUpdate = false;
       listener(
-        store
+        store,
+        updatePaths
+
         // this is causing a deep issue where an injection in a constructor
         // doesn't affect the state it will receive in its render and can
         // cause Errors accessing properties on state that aren't in that copy
@@ -58,6 +69,7 @@ export default function updateState(
         //
         // assign({}, state)
       );
+      updatePaths = [];
     });
   }
 }

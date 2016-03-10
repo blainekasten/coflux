@@ -5,27 +5,26 @@ import updateState from './updateState';
 
 export default function bindActions(
   actions:Object,
-  { mapStateToProps },
-  context:Object,
-  propsForComponent:Object,
 ) : Object {
   const boundActions = {};
 
   function updateStateCallback(updateObject:Object) : void {
     updateState(
-      mapStateToProps.bind(null, context),
+      this.props.mapStateToProps.bind(null, this.context),
       updateObject
     );
   }
 
   for (const actionName in actions) {
-    boundActions[actionName] = actions[actionName].bind(
-      null,
-      { ...propsForComponent,
-        router: context.router
-      },
-      updateStateCallback
-    );
+    boundActions[actionName] = (...args) => {
+      actions[actionName](
+        { ...this.propsForComponent,
+          router: this.context.router
+        },
+        updateStateCallback.bind(this),
+        ...args,
+      );
+    };
   }
 
   return boundActions;
