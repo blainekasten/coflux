@@ -1,0 +1,19 @@
+:local(.Email_heading) {
+  display: block;
+  padding: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: darkgray;
+}
+
+:local(.Email_heading a) {
+  float: right;
+}
+
+:local(.Email_heading) span:first-child {
+  display: inline-block;
+  width: 30%;
+}
+
+:local(.Email_body) {
+}

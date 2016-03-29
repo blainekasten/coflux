@@ -3,10 +3,17 @@
  */
 import React, { PropTypes } from 'react';
 import { listen } from './listener';
-import { injectStore } from './Store';
+import { store } from './Store';
 
-export default function provider(Component, store, children) {
+export default function provider(AppRoot) {
   return class Provider extends React.Component {
+    static childContextTypes = {
+      params: PropTypes.object.isRequired,
+      router: PropTypes.object.isRequired,
+      store: PropTypes.object.isRequired,
+      updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }
+
     constructor(props) {
       super(props);
 
@@ -15,20 +22,15 @@ export default function provider(Component, store, children) {
         updatePaths: [],
       };
 
-      injectStore(store);
-      listen((storeUpdate, updatePaths) => this.setState({updatePaths, store: storeUpdate}));
-    }
-
-    static childContextTypes = {
-      params: PropTypes.object.isRequired,
-      router: PropTypes.object.isRequired,
-      store: PropTypes.object.isRequired,
-      updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+      listen((storeUpdate, updatePaths) => {
+        this.setState({updatePaths, store: storeUpdate})
+      });
     }
 
     getChildContext():Object {
       const { params, router } = this.props;
       const { store, updatePaths } = this.state;
+
       return {
         params,
         router,
@@ -38,10 +40,11 @@ export default function provider(Component, store, children) {
     }
 
     render() {
+      const RouteComponent = this.props.components[0];
       return (
-        <Component>
-          {children()}
-        </Component>
+        <AppRoot>
+          <RouteComponent />
+        </AppRoot>
       );
     }
   }

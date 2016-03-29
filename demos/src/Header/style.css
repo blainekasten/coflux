@@ -1,0 +1,18 @@
+:local(.wrapper) {
+  display: flex;
+  justify-content: space-between;
+
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+
+  background: gainsboro;
+  border-bottom: 2px solid whitesmoke;
+}
+
+:local(.logo) {
+}
+
+:local(.user) {
+}

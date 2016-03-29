@@ -1,0 +1,16 @@
+:local(.wrap) {
+  display: flex;
+}
+
+:local(.sidebar) {
+  height: 400px;
+  max-width: 4rem;
+  min-width: 4rem;
+  padding: 1rem;
+  border-right: 2px solid whitesmoke;
+}
+
+:local(.body) {
+  flex-grow: 1;
+  padding: 0 1rem;
+}

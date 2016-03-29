@@ -1,0 +1,20 @@
+:local(.emailHeader) {
+  display: block;
+  padding: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: darkgray;
+}
+
+:local(.emailWrapper) {
+  flex-grow: 2;
+}
+
+:local(.emailHeader) span:first-child {
+  display: inline-block;
+  width: 30%;
+}
+
+:local(.emailFlexWrapper) {
+  display: flex;
+}

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import StatelessWrapper from './StatelessWrapper';
-import HOWrapper from './HOWrapper';
+import CofluxContainer from './CofluxContainer';
 
 // validate config - use prop types?
 // memoize configs so we don't have to factory?
@@ -11,15 +11,7 @@ import HOWrapper from './HOWrapper';
 export default function wrapComponent(Component:Function, config:Object):Function {
   const wrappedFunction = function(props:?Object):React.DOM {
     return (
-      <HOWrapper
-        {...config}
-        componentProps={props}
-        Component={Component}
-      />
-    );
-
-    return (
-      <StatelessWrapper
+      <CofluxContainer
         {...config}
         componentProps={props}
         Component={Component}
@@ -28,7 +20,7 @@ export default function wrapComponent(Component:Function, config:Object):Functio
   }
 
   wrappedFunction.nativeComponent = Component;
-  wrappedFunction.displayName = Component.name;
+  wrappedFunction.displayName = `${Component.name}ContainerWrapper`;
 
   return wrappedFunction;
 }

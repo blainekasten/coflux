@@ -1,19 +1,109 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+
+  background: gainsboro;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.logo {
+}
+
+.user {
+}
+.wrap {
+  display: flex;
+}
+
+.sidebar {
+  height: 400px;
+  max-width: 4rem;
+  min-width: 4rem;
+  padding: 1rem;
+  border-right: 2px solid whitesmoke;
+}
+
+.body {
+  flex-grow: 1;
+  padding: 0 1rem;
+}
 .productItem {
   display: block;
   padding: 1rem;
-  width: 8rem;
   height: 2rem;
-  background: whitesmoke;
-  border-bottom: 2px solid gray;
+  line-height: 2rem;
+  border-bottom: 1px solid gray;
+  color: black;
+  text-decoration: none;
 }
 
-.productItem button {
+.productItem:hover {
+  background: whitesmoke;
+}
+
+.from {
+  display: inline-block;
+  font-weight: bold;
+  width: 30%;
+}
+
+.subject {
+  content: ' - $'
+}
+.focusedEmail_container {
+  flex-grow: 1;
+  border: 2px solid blue;
+  padding: 1rem;
+}
+
+.focusedEmail_subject {
+  color: green;
+}
+
+.focusedEmail_message {
+  background: lightgray;
+}
+.emailHeader {
+  display: block;
+  padding: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: darkgray;
+}
+
+.emailWrapper {
+  flex-grow: 2;
+}
+
+.emailHeader span:first-child {
+  display: inline-block;
+  width: 30%;
+}
+
+.emailFlexWrapper {
+  display: flex;
+}
+.Email_heading {
+  display: block;
+  padding: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  background: darkgray;
+}
+
+.Email_heading a {
   float: right;
 }
 
-.title {
+.Email_heading span:first-child {
+  display: inline-block;
+  width: 30%;
 }
 
-.value:before {
-  content: ' - $'
+.Email_body {
 }

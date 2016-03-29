@@ -1,25 +1,35 @@
-import { Router } from 'coflux';
-import { browserHistory, Route } from 'react-router';
+import { Provider } from 'coflux';
+import { Router, browserHistory, Route } from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Pharmacy from './Pharmacy';
-import Product from './Product';
-import ProductList from './ProductList';
+import EmailApp from './EmailApp';
+import EmailList from './EmailList';
+import Email from './Email';
 
+// must have a default store
+// would be awesome to integrate with webpack and flow
+// and use flow to validate the store tree
 const store = {
-  pharmacy: {
-    products: [],
-  },
   user: {
     firstName: 'Blaine',
     lastName: 'Kasten',
   },
+  emails: [
+    {from: 'Agent<foo@gmail.com>', subject: 'I rendered this easily', message: 'lorem ipsum foo bar dude', id: 'ab23'},
+    {from: 'ange<italy@gmail.com>', subject: 'Colocation ftw', message: 'Dude. Secret message here yo bro', id: 'cd92'},
+  ],
+
+  focusedEmail: null,
 };
 
 ReactDOM.render(
-  <Router component={Pharmacy} store={store} history={browserHistory}>
-    <Route path="/" component={ProductList}/>
-    <Route path="product/:id" component={Product} />
-  </Router>,
+  <Provider store={store}>
+    <EmailApp>
+      <Router component={EmailApp} history={browserHistory}>
+        <Route path="/" component={EmailList}/>
+        <Route path="/email/:id" component={Email} />
+      </Router>
+    </EmailApp>
+  </Provider>,
   document.querySelector('#app')
 );

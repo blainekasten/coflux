@@ -1,0 +1,13 @@
+:local(.focusedEmail_container) {
+  flex-grow: 1;
+  border: 2px solid blue;
+  padding: 1rem;
+}
+
+:local(.focusedEmail_subject) {
+  color: green;
+}
+
+:local(.focusedEmail_message) {
+  background: lightgray;
+}

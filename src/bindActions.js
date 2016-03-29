@@ -15,16 +15,22 @@ export default function bindActions(
     );
   }
 
-  for (const actionName in actions) {
-    boundActions[actionName] = (...args) => {
-      actions[actionName](
-        { ...this.propsForComponent,
-          router: this.context.router
-        },
+  function createBindings(action) {
+    return (...args) => {
+      actions[action](
+        { ...this.propsForComponent() },
         updateStateCallback.bind(this),
         ...args,
       );
     };
+  }
+
+  for (const actionName in actions) {
+    if (!actions.hasOwnProperty(actionName)) {
+      continue;
+    }
+
+    boundActions[actionName] = createBindings.call(this, actionName);
   }
 
   return boundActions;

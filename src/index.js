@@ -1,7 +1,7 @@
 import wrap from './wrapComponent';
-import Router from './Router';
+import Provider from './PProvider';
 
 export {
-  Router,
   wrap,
+  Provider,
 };
