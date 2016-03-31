@@ -17,3 +17,7 @@ export default function EmailApp(props) {
     </section>
   );
 }
+
+EmailApp.propTypes = {
+  children: React.PropTypes.node,
+};

@@ -24,8 +24,8 @@ export default wrap(EmailPreview, {
   mapStateToProps() {
     return {
       focusedEmail: 'focusedEmail',
-    }
-  }
+    };
+  },
 });
 
 

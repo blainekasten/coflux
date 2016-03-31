@@ -17,8 +17,7 @@ pieces.
 
 This is some sort of ideal API:
 ```js
-// export for testing
-export function productList(props) {
+function productList(props) {
   return props.products.map(product => (
     <div>
       <div className="title">{product.title}</div>
@@ -57,30 +56,18 @@ export const config = {
 export default wrap(productList, config);
 ```
 
-We can figure out best practices for seperating files and such as relay
-can get unwieldly with 100+line files when combining all of that logic.
-I'm imaginging a suggested folder structure like:
-
-```
-ProductList/
- |- Component.jsx
- |- Config.js
- |- index.js
-```
-
 Ironically, I've never used redux, and only seen a bit of the code. But
 I think i've done a lot of the same things that Dan Abramov did. Here is
 my imaginary initial file:
 
 ```jsx
-import { Router } from 'coflux';
+import { Provider } from 'coflux';
 
 ReactDOM.render(
-  <Router history={history} store={initialStore} component={RootComponent} />
-    // regular react-router routes from here on.
-  </Router>,
-
-  domNode
+  <Provider store={initialStore} />
+    ...
+  </Router>
+  , domNode
 );
 ```
 
@@ -96,4 +83,9 @@ Because we can protect them for having to do that logic if we are given
 the data tree structure. I think with that we can do some really smart
 store updates where we given ANY tree, we can know what paths will be
 affected, and set the `shouldComponentUpdate` behind the scenes for
-every tree. This has to be tested, but I believe this is to be true.
+every tree.
+
+
+I'd like to get to the point where initialStore is handled via a babel
+transform which decides what type of primitive is used at different
+paths in the store.
