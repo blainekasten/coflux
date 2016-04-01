@@ -23,7 +23,8 @@ to your components. We'll get to that in a minute. Our `Provider`
 wants to know the structure of your store and any default data. So it
 takes an argument of `initialStore` which gets copied to set that. 
 
-> **NOTE**
+> *NOTE*
+
 > Our goal is to make the initialStore inferred through a babel
 > compiler. That will help with additional performance gains and reduce
 > developer work.
@@ -103,8 +104,9 @@ you only want to read from a property, and getting a re-render is
 pointless. Currently you can get a perf gain by prefixing with an `_`
 in those situations.
 
-> **NOTE**
-> Idaelly, this will be handled through the babel transform.
+> *NOTE*
+
+> Ideally, this will be handled through the babel transform which can verify what props are used in your component.
 
 ```js
 wrap(Component, {
