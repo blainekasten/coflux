@@ -3,13 +3,20 @@
  */
 import crawlObject from './crawlObject';
 
-let _store = {};
+let _store;
+
+try {
+  _store = STORE;
+} catch (e) {
+  // throw error about not using the babel-compiler
+}
 
 export default {
   get store() { return _store; },
 
-  injectStore(store) {
+  injectStore(store:Object) : Object {
     _store = {...store};
+    return _store;
   },
 
   setState(mapStateToProps:Function, key:string, value:any) : void {

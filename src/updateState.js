@@ -13,6 +13,7 @@
 
 import { listener } from './listener';
 import { setState, store } from './Store';
+import invariant from 'invariant';
 // import intersection from './intersection';
 
 let pendingUpdate = false;
@@ -21,11 +22,16 @@ let updatePaths = [];
 export default function updateState(
   mapStateToProps:Object,
   stateUpdateObject:Object,
+  componentName:string,
 ) : void {
   // const stateUpdateObject:Object = intersection(updateObject, resolvePath(store)[resolveKey]);
   let emitListener:boolean = false;
 
   const mappedStateToProps = mapStateToProps();
+
+  if (process.env.NODE_ENV !== 'production') {
+    checkForUnmappedUpdates(mappedStateToProps, stateUpdateObject, componentName);
+  }
 
   for (const stateKeyToUpdate:string in stateUpdateObject) {
     if (!stateUpdateObject.hasOwnProperty(stateKeyToUpdate)) {
@@ -64,5 +70,17 @@ export default function updateState(
       updatePaths = [];
     });
   }
+}
+
+/*
+ * Checks if a component is trying to update an state key is does not have mapped.
+ */
+function checkForUnmappedUpdates(mappedState, stateUpdateRequests, componentName) {
+  Object.keys(stateUpdateRequests).forEach(key => {
+    invariant(
+      mappedState[key],
+      `You are trying to update a state key, "${key}" that is not mapped in your component, ${componentName}.`
+    );
+  });
 }
 

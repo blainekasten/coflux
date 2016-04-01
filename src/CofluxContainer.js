@@ -13,7 +13,7 @@ export default class CofluxContainer extends React.Component {
   };
 
   static contextTypes = {
-    store: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired,
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
@@ -31,6 +31,13 @@ export default class CofluxContainer extends React.Component {
     const { updatePaths } = nextContext;
     const mappedStateToProps = this.props.mapStateToProps(nextContext);
 
+    // don't compare on prefixed private variables
+    Object.keys(mappedStateToProps).forEach(key => {
+      if (key[0] === '_') {
+        delete mappedStateToProps[key];
+      }
+    });
+
     for (const key:string in mappedStateToProps) {
       if (!mappedStateToProps.hasOwnProperty(key)) {
         continue;
@@ -38,11 +45,17 @@ export default class CofluxContainer extends React.Component {
 
       const mappedPath:string = mappedStateToProps[key];
       if ( updatePaths.indexOf(mappedPath) !== -1 ) {
+        console.log('UPDATING NODE', this.name());
         return true;
       }
     }
 
     return false;
+  }
+
+  name() : string {
+    const { Component } = this.props;
+    return Component.displayName || Component.name || 'UnnamedComponent';
   }
 
   propsForComponent() : Object {
@@ -55,10 +68,12 @@ export default class CofluxContainer extends React.Component {
         continue;
       }
 
+
       propsForComponent[key] = crawlObject(
-        this.context.store,
+        this.context.state,
         stateToProps[key]
       );
+
     }
 
     return propsForComponent;

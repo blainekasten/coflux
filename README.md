@@ -1,91 +1,124 @@
-# Coflux
+# coflux
 =======
-Flux at the Component Level
+Flux at the Component Level.
 
-# API Design goals
-There is a lot of thought on what the next flux library could be. Like
-all good technology, it builds off the last iteration. I'm imagining
-some place combinging redux and relay. One beautiful aspect of
-relay is that components define their data. I like this idea and think
-it could be extended further to define actions/reducers.
+Coflux was built to make your components COMPLETELY autonomous
+in both appearance and data. This steals from the ideas of Relay and
+Redux and brings new performance benefits previously not possible.
 
-It also seems that everytime I need flux, I also need react-router, and
-data fetching. Why are they seperate? Then userland has to figure out
-how to combine all of these heavy pieces. My goal is to make all of that
-available, without the user having to figure out how to connect the
-pieces.
+Coflux mitigates `shouldComponentUpdate` calls internally. So you as
+the developer can focus on building UIs instead of ensuring
+performance.
 
-This is some sort of ideal API:
+With coflux, there are only 2 parts you need to know:
+
+* The initial store structure
+* `wrap`ing your components.
+
+### initialStore
+
+We use the `<Provider />` idea from Redux to create a single store. But
+instead of having reducers spread all over your code, they live next
+to your components. We'll get to that in a minute. Our `Provider`
+wants to know the structure of your store and any default data. So it
+takes an argument of `initialStore` which gets copied to set that. 
+
+> **NOTE**
+> Our goal is to make the initialStore inferred through a babel
+> compiler. That will help with additional performance gains and reduce
+> developer work.
+
 ```js
-function productList(props) {
-  return props.products.map(product => (
+import { Provider } from 'coflux';
+
+render(
+  <Provider initialStore={{
+    groceryBag: { items: [], total: 0 },
+    user: { firstName: null, lastName: null, id: null }
+  }}>
+    ...
+  </Provider>
+)
+```
+
+Once your initial store is set, you can build your components
+and wrap them.
+
+### wrap
+
+Wrapping a component lets the component know about it's store and
+infer all the goodies that this library was built for. wrapping
+uses a similar API to redux but re-orients the reducer pattern to
+live next to the component. Here is a simple example:
+
+
+```js
+import { wrap } from 'coflux';
+
+function GroceryBag({items, total, actions}) {
+  return (
     <div>
-      <div className="title">{product.title}</div>
-      <div className="description">{product.description}</div>
-      <button onClick={props.actions.openProduct.bind(null, product.id)}>Open</button>
-      <button onClick={props.actions.deleteProduct.bind(null, product.id)}>Delete</button>
+      {items.map((item, i) =>
+        <li onClick={() => actions.delete(i)}>{item}</li>
+      )}
+      TOTAL: {total}
+      <button onClick={actions.checkout}>Checkout</button>
     </div>
-  ));
+  );
 }
 
-export const config = {
-  mapStateToProps(context) : Object {
-    return {
-      products: context.store.products,
-    };
+export default wrap(GroceryBag, {
+  mapStateToProps() {
+    items: 'groceryBag.items',
+    total: 'groceryBag.total',
   },
 
   actions: {
-    // this looks like middleware, maybe it is?
-    openProduct(context, next, id) {
-      context.router.push(`/route/foo/${id}`);
-      // no need to call next, as react-router is taking this over?
-    },
+    checkout(props, next) {
+      // checkout code
+    }
 
-    deleteProduct(context, next, id) {
-      let products = context.store.products;
-      products = _.remove(products, {id});
+    delete(props, next, index) {
+      const items = props.items;
+      items = items.splice(index, 1);
 
-      // causes updates to the store.
-      // no need for the TYPE property as it just acts on the state.
-      next({products});
-    },
-  },
-}
-
-export default wrap(productList, config);
+      next({items}); // updates the internal store
+    }
+});
 ```
 
-Ironically, I've never used redux, and only seen a bit of the code. But
-I think i've done a lot of the same things that Dan Abramov did. Here is
-my imaginary initial file:
-
-```jsx
-import { Provider } from 'coflux';
-
-ReactDOM.render(
-  <Provider store={initialStore} />
-    ...
-  </Router>
-  , domNode
-);
-```
-
-The initialStore must have the object setup that will be expected
-throughout the entire app. This we can internally infer if you are
-breaking anything with Flow like checks. For example, if the intialStore
-had a nested point that was of type `Object` and your component changed
-it to an `Array`, we could throw an error. As that will lead to bugs.
-
-Also, I think this library is onto something new and beautiful.
-Basically no one ever has to write stateful components ever again.
-Because we can protect them for having to do that logic if we are given
-the data tree structure. I think with that we can do some really smart
-store updates where we given ANY tree, we can know what paths will be
-affected, and set the `shouldComponentUpdate` behind the scenes for
-every tree.
+That example shows items from your store being mapped into your
+components props and creating action reducers local to your component.
 
 
-I'd like to get to the point where initialStore is handled via a babel
-transform which decides what type of primitive is used at different
-paths in the store.
+
+### EXTRAS
+
+#### mapped props with `_`
+
+Internally, we use these mapped props to track updates and prevent
+component re-renders. So every store property you bind to, you are
+effectively asking for re-renders when that changs. Sometimes
+you only want to read from a property, and getting a re-render is
+pointless. Currently you can get a perf gain by prefixing with an `_`
+in those situations.
+
+> **NOTE**
+> Idaelly, this will be handled through the babel transform.
+
+```js
+wrap(Component, {
+  mapStateToProps() {
+    return {
+      foo: 'foo',
+      _bar: 'bar', // Component will not re-render when this changes
+    }
+  }
+});
+
+
+#### Testing Helper
+
+`unwrap` (Currently called something else) will help you test your
+components by sorting out the internal needs for the component and
+letting you set those values.

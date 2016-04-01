@@ -12,17 +12,17 @@ export default class Provider extends React.Component {
   }
 
   static childContextTypes = {
-    store: PropTypes.object.isRequired,
+    state: PropTypes.object.isRequired,
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   }
 
   constructor(props) {
     super(props);
 
-    injectStore(this.props.store);
+    const state = injectStore(this.props.store);
 
     this.state = {
-      store: {...this.props.store},
+      state,
       updatePaths: [],
     };
 
@@ -32,10 +32,10 @@ export default class Provider extends React.Component {
   }
 
   getChildContext():Object {
-    const { store, updatePaths } = this.state;
+    const { state, updatePaths } = this.state;
 
     return {
-      store,
+      state,
       updatePaths,
     };
   }

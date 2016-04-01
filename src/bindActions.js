@@ -8,16 +8,17 @@ export default function bindActions(
 ) : Object {
   const boundActions = {};
 
-  function updateStateCallback(updateObject:Object) : void {
-    updateState(
+  function updateStateCallback(updateObject:Object) : any {
+    return updateState(
       this.props.mapStateToProps.bind(null, this.context),
-      updateObject
+      updateObject,
+      this.name(),
     );
   }
 
-  function createBindings(action) {
+  function createBindings(action:string) : Function {
     return (...args) => {
-      actions[action](
+      return actions[action](
         { ...this.propsForComponent() },
         updateStateCallback.bind(this),
         ...args,
