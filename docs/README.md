@@ -163,3 +163,34 @@ const Component = unwrap(WrappedComponent, { user: {
 
 const inst = <Component />;
 ```
+
+
+
+
+
+
+
+### EXTRAS
+
+#### mapped props with `_`
+
+Internally, we use these mapped props to track updates and prevent
+component re-renders. So every store property you bind to, you are
+effectively asking for re-renders when that changs. Sometimes
+you only want to read from a property, and getting a re-render is
+pointless. Currently you can get a perf gain by prefixing with an `_`
+in those situations.
+
+> **NOTE**
+> Future, this will be managed behind the scenes through the babel transform.
+
+```js
+wrap(Component, {
+  mapStateToProps() {
+    return {
+      foo: 'foo',
+      _bar: 'bar', // Component will not re-render when this changes
+    }
+  }
+});
+
