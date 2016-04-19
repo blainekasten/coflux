@@ -9,8 +9,12 @@
     "lint": "eslint src/**",
     "build:demos": "webpack --config demos/webpack.config.js",
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
-    "build:dist": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib"
   },
+  "files": [
+    "src",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/blainekasten/coflux.git"

@@ -9,12 +9,12 @@ export default class Provider extends React.Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     store: PropTypes.object.isRequired,
-  }
+  };
 
   static childContextTypes = {
     state: PropTypes.object.isRequired,
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);

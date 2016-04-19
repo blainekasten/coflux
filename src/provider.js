@@ -12,7 +12,7 @@ export default function provider(AppRoot) {
       router: PropTypes.object.isRequired,
       store: PropTypes.object.isRequired,
       updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
-    }
+    };
 
     constructor(props) {
       super(props);
