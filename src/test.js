@@ -1,14 +1,10 @@
 import React from 'react';
 import Provider from './PProvider';
 
-export default function testWrapper(Component, user) {
-  const builtStore = {
-    user,
-  };
-
-  return function() {
+export default function unwrapCofluxComponent(Component, mockStore) {
+  return function TestComponent() {
     return (
-      <Provider store={builtStore}>
+      <Provider store={mockStore}>
         <Component />
       </Provider>
     );

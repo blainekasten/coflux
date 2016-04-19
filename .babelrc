@@ -5,6 +5,7 @@
     "stage-0"
   ],
   "plugins": [
+    "./plugins/coflux-compiler",
     "add-module-exports",
     ["css-modules-transform", { generateScopedName: "[local]" }]
   ]

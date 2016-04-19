@@ -19,6 +19,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.4.5",
+    "object-crawl": "^1.0.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7"
   },
@@ -53,7 +54,8 @@
     "unmockedModulePathPatterns": [
       "react",
       "src/",
-      "enzyme"
+      "enzyme",
+      "object-crawl"
     ]
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @flow
  */
-import crawlObject from './crawlObject';
+import crawlObject from 'object-crawl';
 
 let _store;
 

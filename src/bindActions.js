@@ -10,7 +10,7 @@ export default function bindActions(
 
   function updateStateCallback(updateObject:Object) : any {
     return updateState(
-      this.props.mapStateToProps.bind(null, this.context),
+      this.props.mapStateToProps.bind(null, this.context.state),
       updateObject,
       this.name(),
     );

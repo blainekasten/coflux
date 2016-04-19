@@ -104,7 +104,7 @@ pointless. Currently you can get a perf gain by prefixing with an `_`
 in those situations.
 
 > **NOTE**
-> Idaelly, this will be handled through the babel transform.
+> Future, this will be managed behind the scenes through the babel transform.
 
 ```js
 wrap(Component, {

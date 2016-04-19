@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { store as state, loadedForPath } from './Store';
-import crawlObject from './crawlObject';
+import crawlObject from 'object-crawl';
 import bindActions from './bindActions';
 import updateState from './updateState';
 

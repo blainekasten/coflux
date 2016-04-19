@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import crawlObject from './crawlObject';
+import crawlObject from 'object-crawl';
 import bindActions from './bindActions';
 
 // bind actions correctly
@@ -29,7 +29,7 @@ export default class CofluxContainer extends React.Component {
    */
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { updatePaths } = nextContext;
-    const mappedStateToProps = this.props.mapStateToProps(nextContext);
+    const mappedStateToProps = this.props.mapStateToProps(nextContext.state);
 
     // don't compare on prefixed private variables
     Object.keys(mappedStateToProps).forEach(key => {
@@ -60,14 +60,13 @@ export default class CofluxContainer extends React.Component {
 
   propsForComponent() : Object {
     const { mapStateToProps } = this.props;
-    const stateToProps:Object = mapStateToProps(this.context);
+    const stateToProps:Object = mapStateToProps(this.context.state);
     const propsForComponent:Object = {};
 
     for (const key:string in stateToProps) {
       if (!stateToProps.hasOwnProperty(key)) {
         continue;
       }
-
 
       propsForComponent[key] = crawlObject(
         this.context.state,
@@ -76,6 +75,7 @@ export default class CofluxContainer extends React.Component {
 
     }
 
+    console.log(propsForComponent);
     return propsForComponent;
   }
 

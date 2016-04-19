@@ -1,14 +1,18 @@
+const mapStateVisitor = require('./map-state-visitor');
+
 module.exports = function cofluxCompiler(babel) {
   const t = babel.types;
   // plugin contents
+  //console.log(t);
   return {
     visitor: {
-      Identifier(path) {
-        if (path.node.name !== 'Provider') {
+      FunctionExpression(path) {
+        const id = path.node.id;
+        if (!id || id.name !== 'mapStateToProps') {
           return;
         }
 
-        console.log(path.node.name);
+        path.traverse(mapStateVisitor);
       },
 
       ReturnStatement(path) {

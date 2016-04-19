@@ -1,15 +1,16 @@
 const React = require('react');
 const { shallow } = require('enzyme');
-const Header = require.requireActual('../index.js');
+const WrappedHeader = require.requireActual('../');
 const mockWrapper = require.requireActual('../../../../src/test.js');
 
 describe('Header', () => {
-  const WrappedHeader = mockWrapper(Header, { firstName: 'foo', lastName: 'bar' });
-  const wrapper = shallow(<WrappedHeader />);
+  const Header = mockWrapper(
+    WrappedHeader,
+    { user: { firstName: 'foo', lastName: 'bar' }}
+  );
+  const wrapper = shallow(<Header />);
 
   it('renders the first and last name in the user div', () => {
-    const user = wrapper.find('div.user')
-
-    console.log(user.children());
+    const user = wrapper.find('.user');
   });
 });
