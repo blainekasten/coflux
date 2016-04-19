@@ -23,7 +23,8 @@ to your components. We'll get to that in a minute. Our `Provider`
 wants to know the structure of your store and any default data. So it
 takes an argument of `initialStore` which gets copied to set that. 
 
-> **NOTE**
+> *NOTE*
+
 > Our goal is to make the initialStore inferred through a babel
 > compiler. That will help with additional performance gains and reduce
 > developer work.
