@@ -1,51 +1,47 @@
 /*
  * @flow
  */
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Children } from 'react';
 import { listen } from './listener';
-import { store } from './Store';
+import { injectStore } from './Store';
 
-export default function provider(AppRoot) {
-  return class Provider extends React.Component {
-    static childContextTypes = {
-      params: PropTypes.object.isRequired,
-      router: PropTypes.object.isRequired,
-      store: PropTypes.object.isRequired,
-      updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+export default class Provider extends React.Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    store: PropTypes.object.isRequired,
+  };
+
+  static childContextTypes = {
+    state: PropTypes.object.isRequired,
+    updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+
+    const state = injectStore(this.props.store);
+
+    this.state = {
+      state,
+      updatePaths: [],
     };
 
-    constructor(props) {
-      super(props);
+    listen((storeUpdate, updatePaths) => {
+      this.setState({updatePaths, store: storeUpdate});
+    });
+  }
 
-      this.state = {
-        store,
-        updatePaths: [],
-      };
+  getChildContext():Object {
+    const { state, updatePaths } = this.state;
 
-      listen((storeUpdate, updatePaths) => {
-        this.setState({updatePaths, store: storeUpdate})
-      });
-    }
+    return {
+      state,
+      updatePaths,
+    };
+  }
 
-    getChildContext():Object {
-      const { params, router } = this.props;
-      const { store, updatePaths } = this.state;
-
-      return {
-        params,
-        router,
-        store,
-        updatePaths,
-      }
-    }
-
-    render() {
-      const RouteComponent = this.props.components[0];
-      return (
-        <AppRoot>
-          <RouteComponent />
-        </AppRoot>
-      );
-    }
+  render() : React.DOM {
+    const { children } = this.props;
+    return Children.only(children);
   }
 }
