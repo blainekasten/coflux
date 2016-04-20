@@ -11,7 +11,7 @@ app.get('/*', (req, res, next) => {
     return next();
   }
 
-  const file = fs.readFileSync(__dirname + '/demos/index.html');
+  const file = fs.readFileSync(__dirname + '/index.html');
 
   res.header('Content-Type', 'text/html');
   res.send(file);

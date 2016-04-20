@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
-    "start": "npm run build:watch:demos & node ./server.js",
+    "start": "npm run build:watch:demos & node ./demos/server.js",
     "lint": "eslint src/**",
     "build:demos": "webpack --config demos/webpack.config.js",
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
