@@ -70,6 +70,6 @@ export default wrap(UserComponent, {
 *Not particularily in execution order..*
 
 1. Middleware support [(#1)](https://github.com/blainekasten/coflux/issues/1)
-2. BabelPlugin for masking `_` prop api.
-3. BabelPlugin for infering store structure.
-4. DevTooling
+2. BabelPlugin for masking `_` prop api. [(#2)](https://github.com/blainekasten/coflux/issues/2)
+3. BabelPlugin for infering store structure. [(#3)](https://github.com/blainekasten/coflux/issues/3)
+4. DevTooling [(#4)](https://github.com/blainekasten/coflux/issues/4)
