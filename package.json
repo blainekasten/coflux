@@ -9,7 +9,9 @@
     "lint": "eslint src/**",
     "build:demos": "webpack --config demos/webpack.config.js",
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib --ignore tests",
+    "test": "jest --coverage",
+    "posttest": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc"
   },
   "files": [
     "src",
@@ -37,6 +39,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
+    "codecov": "^1.0.1",
     "coveralls": "^2.11.4",
     "css-loader": "^0.23.1",
     "enzyme": "^2.2.0",
@@ -56,6 +59,9 @@
     "webpack": "^1.12.14"
   },
   "jest": {
+    "testPathDirs": [
+      "src"
+    ],
     "unmockedModulePathPatterns": [
       "react",
       "src/",
