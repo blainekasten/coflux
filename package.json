@@ -24,6 +24,7 @@
   "author": "Blaine Kasten <blainekasten@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "invariant": "^2.2.1",
     "object-crawl": "^1.0.1"
   },
   "devDependencies": {
