@@ -11,7 +11,7 @@
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
     "build": "babel src --out-dir lib --ignore tests",
     "test": "jest --coverage",
-    "posttest": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc"
+    "upload-coverage": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc"
   },
   "files": [
     "src",
