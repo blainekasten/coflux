@@ -1,5 +1,5 @@
 {
-  "name": "Coflux",
+  "name": "coflux",
   "version": "0.1.0",
   "description": "Component-based Flux",
   "main": "lib/index.js",
