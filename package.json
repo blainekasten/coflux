@@ -10,7 +10,7 @@
     "build:demos": "webpack --config demos/webpack.config.js",
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
     "build": "babel src --out-dir lib --ignore tests",
-    "test": "jest --coverage",
+    "test": "jest",
     "upload-coverage": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc"
   },
   "files": [
@@ -24,12 +24,10 @@
   "author": "Blaine Kasten <blainekasten@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.4.5",
-    "object-crawl": "^1.0.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "object-crawl": "^1.0.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.4.5",
     "babel-core": "^6.5.2",
     "babel-eslint": "^4.1.6",
     "babel-jest": "^9.0.3",
@@ -50,8 +48,10 @@
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
     "istanbul": "^0.4.0",
-    "jest-cli": "^0.9.2",
+    "jest-cli": "^12.0.0",
     "mocha": "^2.2.5",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
     "react-addons-test-utils": "^0.14.7",
     "react-router": "^2.0.0",
     "rimraf": "^2.4.3",
@@ -59,14 +59,16 @@
     "webpack": "^1.12.14"
   },
   "jest": {
+    "collectCoverage": true,
     "testPathDirs": [
       "src"
     ],
     "unmockedModulePathPatterns": [
-      "react",
-      "src/",
       "enzyme",
-      "object-crawl"
+      "glob",
+      "object-crawl",
+      "react",
+      "src/"
     ]
   }
 }
