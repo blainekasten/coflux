@@ -89,4 +89,3 @@ every tree.
 I'd like to get to the point where initialStore is handled via a babel
 transform which decides what type of primitive is used at different
 paths in the store.
-
