@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
-  "name": "Coflux",
-  "version": "0.2.0-beta1",
-=======
   "name": "coflux",
-  "version": "0.1.0",
->>>>>>> master
+  "version": "0.2.0-beta1",
   "description": "Component-based Flux",
   "main": "lib/index.js",
   "scripts": {
