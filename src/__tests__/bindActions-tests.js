@@ -15,7 +15,7 @@ const component = {
   propsForComponent() {
     return { firstName: 'foo' };
   },
-}
+};
 
 describe('bindActions', () => {
   it('creates a wrapper around the actions', () => {
@@ -50,7 +50,7 @@ describe('bindActions', () => {
 
   describe('arguments updateState receives from next()', () => {
     const foo = (props, next) => {
-      next({firstName: 'bar'});
+      next({ firstName: 'bar' });
     };
 
     const actions = bindActions.call(component, {
@@ -67,7 +67,7 @@ describe('bindActions', () => {
     });
 
     it('receives the updateObject', () => {
-      expect(updateState.mock.calls[0][1]).toEqual({firstName: 'bar'});
+      expect(updateState.mock.calls[0][1]).toEqual({ firstName: 'bar' });
     });
 
     it('receives the component name', () => {

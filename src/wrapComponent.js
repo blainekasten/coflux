@@ -44,7 +44,7 @@ export default function wrapComponent(Component:Function, config:Object):Functio
     return deps;
   };
 
-  const wrappedFunction = function(props:?Object):React.DOM {
+  function wrappedFunction(props:?Object):React.DOM {
     return (
       <CofluxContainer
         {...config}

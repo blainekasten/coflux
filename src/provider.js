@@ -27,7 +27,7 @@ export default class Provider extends React.Component {
     };
 
     listen((storeUpdate, updatePaths) => {
-      this.setState({updatePaths, store: storeUpdate});
+      this.setState({ updatePaths, store: storeUpdate });
     });
   }
 

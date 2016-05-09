@@ -5,17 +5,17 @@ import crawlObject from 'object-crawl';
 
 let _store;
 
-try {
-  _store = STORE;
-} catch (e) {
+// try {
+  // _store = STORE;
+// } catch (e) {
   // throw error about not using the babel-compiler
-}
+// }
 
 export default {
   get store() { return _store; },
 
   injectStore(store:Object) : Object {
-    _store = {...store};
+    _store = { ...store };
     return _store;
   },
 
