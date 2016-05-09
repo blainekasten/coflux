@@ -18,6 +18,8 @@ jsFiles.forEach(file => {
 
   const relativeFile = file.replace(/\//g, '../').replace('src', '');
 
+  console.log(jest.currentTestPath(), relativeFile);
+
   require(relativeFile);
 });
 
