@@ -44,7 +44,7 @@ export default class CofluxContainer extends React.Component {
         continue;
       }
 
-      const mappedPath:string = mappedStateToProps[key];
+      const mappedPath:string = treeDependencies[key];
       if (updatePaths.indexOf(mappedPath) !== -1) {
         return true;
       }

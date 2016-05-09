@@ -16,17 +16,16 @@ jest.autoMockOn();
 
 const srcPath = jest.currentTestPath().replace(/__.*/, '');
 
-console.log('...', srcPath);
-
 jsFiles.forEach(file => {
   // don't load test files
   if (file.search('__tests__') !== -1) {
     return;
   }
 
-  const relativeFile = file.replace(/\//g, srcPath).replace('src', '');
-  console.log(relativeFile);
+  const absoluteFile = file.
+    replace(/\//g, srcPath).
+    replace('src', '');
 
-  require(relativeFile);
+  require(absoluteFile);
 });
 
