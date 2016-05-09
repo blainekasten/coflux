@@ -29,21 +29,22 @@ export default class CofluxContainer extends React.Component {
    */
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { updatePaths } = nextContext;
-    const mappedStateToProps = this.props.mapStateToProps(nextContext.state);
+    const { children } = this.props.componentProps;
+    const treeDependencies = this.props.Component.childDependencies(this.props.Component, children);
 
     // don't compare on prefixed private variables
-    Object.keys(mappedStateToProps).forEach(key => {
+    Object.keys(treeDependencies).forEach(key => {
       if (key[0] === '_') {
-        delete mappedStateToProps[key];
+        delete treeDependencies[key];
       }
     });
 
-    for (const key:string in mappedStateToProps) {
-      if (!mappedStateToProps.hasOwnProperty(key)) {
+    for (const key:string in treeDependencies) {
+      if (!treeDependencies.hasOwnProperty(key)) {
         continue;
       }
 
-      const mappedPath:string = mappedStateToProps[key];
+      const mappedPath:string = treeDependencies[key];
       if (updatePaths.indexOf(mappedPath) !== -1) {
         return true;
       }
