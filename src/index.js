@@ -1,5 +1,5 @@
 import wrap from './wrapComponent';
-import Provider from './Provider.js';
+import Provider from './Provider';
 import unwrap from './test';
 
 export {
