@@ -14,6 +14,8 @@ jsFiles.forEach(file => {
     return;
   }
 
-  require.requireActual(`${process.cwd()}/${file}`);
+  const relativeFile = file.replace(/\//g, '../').replace('src', '');
+
+  require(relativeFile);
 });
 
