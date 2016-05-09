@@ -70,8 +70,7 @@
       "enzyme",
       "glob",
       "object-crawl",
-      "react",
-      "src/"
+      "react"
     ]
   }
 }

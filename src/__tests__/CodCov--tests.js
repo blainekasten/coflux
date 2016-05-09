@@ -8,6 +8,8 @@ const glob = require('glob');
 
 const jsFiles = glob.sync('src/**.js');
 
+jest.autoMockOn();
+
 jsFiles.forEach(file => {
   // don't load test files
   if (file.search('__tests__') !== -1) {
@@ -16,6 +18,6 @@ jsFiles.forEach(file => {
 
   const relativeFile = file.replace(/\//g, '../').replace('src', '');
 
-  jest.mock(relativeFile, {});
+  require(relativeFile);
 });
 
