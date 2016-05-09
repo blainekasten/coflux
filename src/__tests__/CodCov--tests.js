@@ -16,6 +16,6 @@ jsFiles.forEach(file => {
 
   const relativeFile = file.replace(/\//g, '../').replace('src', '');
 
-  jest.setMock(relativeFile, {});
+  jest.mock(relativeFile, {});
 });
 
