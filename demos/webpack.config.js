@@ -50,7 +50,7 @@ function modules(){
   return {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=[local]') },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
     ]
   };
 }

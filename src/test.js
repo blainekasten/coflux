@@ -8,5 +8,5 @@ export default function unwrapCofluxComponent(Component, mockStore) {
         <Component />
       </Provider>
     );
-  }
+  };
 }

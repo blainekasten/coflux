@@ -1,4 +1,6 @@
 # coflux
+[![Circle
+CI](https://circleci.com/gh/blainekasten/coflux.svg?style=svg)](https://circleci.com/gh/blainekasten/coflux)
 Flux at the Component Level.
 
 Coflux was built to make your components COMPLETELY autonomous

@@ -13,7 +13,7 @@
 
 import { listener } from './listener';
 import { setState, store } from './Store';
-import invariant from 'invariant';
+import { checkForUnmappedUpdates } from './Warnings';
 // import intersection from './intersection';
 
 let pendingUpdate = false;
@@ -64,23 +64,11 @@ export default function updateState(
       pendingUpdate = false;
 
       listener(
-        {...store},
+        { ...store },
         updatePaths
       );
       updatePaths = [];
     });
   }
-}
-
-/*
- * Checks if a component is trying to update an state key is does not have mapped.
- */
-function checkForUnmappedUpdates(mappedState, stateUpdateRequests, componentName) {
-  Object.keys(stateUpdateRequests).forEach(key => {
-    invariant(
-      mappedState[key],
-      `You are trying to update a state key, "${key}" that is not mapped in your component, ${componentName}.`
-    );
-  });
 }
 
