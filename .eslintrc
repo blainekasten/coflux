@@ -1,8 +1,16 @@
 {
   "extends": "airbnb",
+  "parser": "babel-eslint",
   "root": true,
   "rules": {
     "camelcase": 0,
-    "display-name": [1, { "ignoreTranspilerName": true }]
+    "display-name": [0]
+  },
+  "globals": {
+    "jest": true,
+    "before": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
   }
 }

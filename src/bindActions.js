@@ -17,13 +17,12 @@ export default function bindActions(
   }
 
   function createBindings(action:string) : Function {
-    return (...args) => {
-      return actions[action](
+    return (...args) =>
+      actions[action](
         { ...this.propsForComponent() },
         updateStateCallback.bind(this),
         ...args,
       );
-    };
   }
 
   for (const actionName in actions) {

@@ -6,10 +6,10 @@
 let _listener: Function = () => {};
 
 export default {
-  get listener() : func {
+  get listener() : Function {
     return _listener;
   },
-  listen(fn: func) : void {
+  listen(fn: Function) : void {
     _listener = fn;
   },
 };

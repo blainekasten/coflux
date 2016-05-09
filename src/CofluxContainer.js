@@ -44,8 +44,7 @@ export default class CofluxContainer extends React.Component {
       }
 
       const mappedPath:string = mappedStateToProps[key];
-      if ( updatePaths.indexOf(mappedPath) !== -1 ) {
-        console.log('UPDATING NODE', this.name());
+      if (updatePaths.indexOf(mappedPath) !== -1) {
         return true;
       }
     }
@@ -72,10 +71,8 @@ export default class CofluxContainer extends React.Component {
         this.context.state,
         stateToProps[key]
       );
-
     }
 
-    console.log(propsForComponent);
     return propsForComponent;
   }
 

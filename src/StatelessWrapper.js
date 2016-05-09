@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { store as state, loadedForPath } from './Store';
+import { loadedForPath } from './Store';
 import crawlObject from 'object-crawl';
 import bindActions from './bindActions';
 import updateState from './updateState';
@@ -20,6 +20,9 @@ export default function StatelessWrapper(props, context):React.DOM {
   let boundActions:?Object = actions;
 
   for (const key:string in stateToProps) {
+    if (!stateToProps.hasOwnProperty(key)) {
+      continue;
+    }
     // TODO  figure out when to fetch and when to not fetch
     // maybe something like on initial load check the store to see if it was provided
     // initially?
@@ -54,8 +57,17 @@ export default function StatelessWrapper(props, context):React.DOM {
   );
 }
 
+StatelessWrapper.propTypes = {
+  fetch: PropTypes.func,
+  Component: PropTypes.node,
+  componentProps: PropTypes.object,
+  actions: PropTypes.object,
+  loadingDOM: PropTypes.func,
+  mapStateToProps: PropTypes.func,
+};
+
 StatelessWrapper.contextTypes = {
   store: PropTypes.object.isRequired,
   router: PropTypes.object.isRequired,
   params: PropTypes.object.isRequired,
-}
+};

@@ -14,6 +14,6 @@ jsFiles.forEach(file => {
     return;
   }
 
-  require(process.cwd() + '/' + file);
+  require(`${process.cwd()}/${file}`);
 });
 
