@@ -1,7 +1,11 @@
 # coflux
+Flux at the Component Level.
+
 [![Circle
 CI](https://circleci.com/gh/blainekasten/coflux.svg?style=svg)](https://circleci.com/gh/blainekasten/coflux)
-Flux at the Component Level.
+[![npm version](https://img.shields.io/npm/v/coflux.svg)](https://www.npmjs.com/package/coflux)
+
+
 
 Coflux was built to make your components COMPLETELY autonomous
 in both appearance and data. This steals from the ideas of Relay and
