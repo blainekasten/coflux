@@ -4,7 +4,7 @@ const React = require('react');
 const {
   Provider,
   wrap,
-} = require('../index');
+} = require('../../index');
 
 const { mount } = require('enzyme');
 window.requestAnimationFrame = function(cb) { cb() }

@@ -26,6 +26,7 @@ export default function bindActions(
   }
 
   for (const actionName in actions) {
+    /* istanbul ignore if */
     if (!actions.hasOwnProperty(actionName)) {
       continue;
     }

@@ -19,7 +19,7 @@ module.exports = {
 
   entry: './index',
   output: {
-    filename: 'index.js',
+    filename: '[name]',
 
     // We want to save the bundle in the same directory as the other JS.
     path: __dirname + '/build',
