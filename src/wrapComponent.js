@@ -2,7 +2,6 @@
  * @flow
  */
 import React, { Children } from 'react';
-import StatelessWrapper from './StatelessWrapper';
 import CofluxContainer from './CofluxContainer';
 
 // validate config - use prop types?
