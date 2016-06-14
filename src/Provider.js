@@ -13,13 +13,16 @@ export default class Provider extends React.Component {
 
   static childContextTypes = {
     state: PropTypes.object.isRequired,
+    middleware: PropTypes.arrayOf(
+      PropTypes.func
+    ).isRequired,
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   constructor(props) {
     super(props);
 
-    const state = injectStore(this.props.store);
+    const state = injectStore(this.props.store, this.props.middleware);
 
     this.state = {
       state,

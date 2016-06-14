@@ -6,6 +6,7 @@ import EmailApp from './EmailApp';
 import EmailList from './EmailList';
 import Email from './Email';
 import style from './style2.css';
+import logger from './logger'
 
 // must have a default store
 // would be awesome to integrate with webpack and flow
@@ -24,7 +25,7 @@ const store = {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} middleware={[logger]}>
     <EmailApp>
       <Router component={EmailApp} history={browserHistory}>
         <Route path="/" component={EmailList}/>

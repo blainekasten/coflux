@@ -4,6 +4,7 @@
 import crawlObject from 'object-crawl';
 
 let _store;
+let _middleware;
 
 // try {
   // _store = STORE;
@@ -14,8 +15,10 @@ let _store;
 export default {
   get store() { return _store; },
 
-  injectStore(store:Object) : Object {
+  injectStore(store:Object, middleware:?Array<Function>) : Object {
     _store = { ...store };
+    console.log('injecting middleware')
+    _middleware = middleware;
     return _store;
   },
 
