@@ -22,6 +22,10 @@ export default function wrapComponent(Component:Function, config:Object):Functio
     arrayChildren.forEach(buildGranchildDependencies);
 
     function buildGranchildDependencies(child) : void {
+      // Bail if child is not a component (e.g. a string)
+      if (!React.isValidElement(child)) {
+        return;
+      }
       const childComponent:Object = child.type.nativeComponent;
 
       if (!childComponent) {

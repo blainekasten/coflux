@@ -350,5 +350,52 @@ describe('Deep Wrap', () => {
     ).toBe(EXPECTED_STATE_VALUE);
 
   });
-});
 
+  it('works with non-element children', () => {
+    const nodeWithTextChild = ({ test, children, actions }) => {
+      return (
+        <div onClick={actions.triggerUpdate}>
+          {test} {children}
+        </div>
+      );
+    };
+
+    const NodeWithTextChild = wrap(nodeWithTextChild, {
+      mapStateToProps() {
+        return {
+          test: 'test',
+        };
+      },
+      actions: {
+        triggerUpdate(props, next) {
+          next({ test: 'bar' });
+        },
+      },
+    });
+
+    const store = {
+      test: 'foo',
+    };
+
+    const tree = mount(
+      <Provider store={store}>
+        <NodeWithTextChild>
+          test
+        </NodeWithTextChild>
+      </Provider>
+    );
+
+    /*
+     * simulate the click to update state
+     */
+    const nodeWrapper = tree.find('[onClick]');
+    nodeWrapper.simulate('click');
+
+    /*
+     * EXPECTATION
+     */
+    expect(
+      nodeWrapper.text()
+    ).toBe('bar test');
+  });
+});
