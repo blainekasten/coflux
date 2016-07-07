@@ -9,7 +9,7 @@ CI](https://circleci.com/gh/blainekasten/coflux.svg?style=svg)](https://circleci
 
 App state is simply a dependency of your components. Coflux was built to make your components define it's own dependencies, and handle it's own UI and actions. This steals from some ideas of Redux with a different implementation and brings new performance benefits previously not possible.
 
-### [Documentation](https://github.com/blainekasten/coflux/tree/master/docs)
+### [Documentation](https://blainekasten.gitbooks.io/coflux/content/)
 
 
 ### Example
