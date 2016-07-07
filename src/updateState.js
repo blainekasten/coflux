@@ -14,7 +14,6 @@
 import { listener } from './listener';
 import { setState, store } from './Store';
 import { checkForUnmappedUpdates } from './Warnings';
-// import intersection from './intersection';
 
 let pendingUpdate = false;
 let updatePaths = [];
@@ -24,7 +23,6 @@ export default function updateState(
   stateUpdateObject:Object,
   componentName:string,
 ) : void {
-  // const stateUpdateObject:Object = intersection(updateObject, resolvePath(store)[resolveKey]);
   let emitListener:boolean = false;
 
   const mappedStateToProps = mapStateToProps();
