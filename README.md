@@ -32,7 +32,7 @@ ReactDOM.render(
   <Provider store={defaultStore}>
     <User />
   </Provider>,
-  domNode
+  document.querySelector('#app')
 );
 ```
 
