@@ -1,6 +1,10 @@
 /*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
  * @providesModule unwrapComponent
- * @flow
  */
 
 import React from 'react';

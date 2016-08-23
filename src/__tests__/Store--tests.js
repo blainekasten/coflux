@@ -1,9 +1,5 @@
 jest.autoMockOff();
-const {
-  injectStore,
-  setState,
-  store,
-} = require.requireActual('../Store');
+const Store = require.requireActual('../Store');
 
 describe('Store', () => {
   describe('injectStore/get', () => {
@@ -12,9 +8,9 @@ describe('Store', () => {
         foo: true,
       };
 
-      injectStore(_store);
+      Store.injectStore(_store);
 
-      expect(store).not.toBe(_store);
+      expect(Store.getState()).not.toBe(_store);
     });
   });
 
@@ -24,7 +20,7 @@ describe('Store', () => {
         foo: true,
         bar: {baz: true},
       };
-      injectStore(_store);
+      Store.injectStore(_store);
 
       function mapStateToProps() {
         return {
@@ -33,7 +29,7 @@ describe('Store', () => {
         };
       }
 
-      setState(mapStateToProps, 'baz', false);
+      Store.setState(mapStateToProps, 'baz', false);
 
       expect(_store.bar.baz).toBeFalsy();
     });

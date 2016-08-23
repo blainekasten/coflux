@@ -1,9 +1,16 @@
 /*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
+ * @providesModule Store
  * @flow
  */
+
 import crawlObject from 'object-crawl';
 
-let _store;
+let _store:Object;
 
 // try {
   // _store = STORE;
@@ -12,7 +19,9 @@ let _store;
 // }
 
 export default {
-  get store() { return _store; },
+  getState() : Object {
+    return _store;
+  },
 
   injectStore(store:Object) : Object {
     _store = { ...store };

@@ -1,7 +1,20 @@
 /*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
+ * @providesModule bindActions
  * @flow
  */
+
 import updateState from './updateState';
+
+export type ActionFn = (stateSlice:Object, nextFn:Function, ...args:any) => Object
+
+export type ActionBindings = {
+  [key: string]: ActionFn,
+};
 
 export default function bindActions(
   actions:Object,

@@ -1,15 +1,21 @@
-/**
+/*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
  * @providesModule Listener
- * @providesModule flow
+ * @flow
  */
 
 let _listener: Function = () => {};
 
 export default {
-  get listener() : Function {
+  getListener() : Function {
     return _listener;
   },
+
   listen(fn: Function) : void {
-    _listener = fn;
-  },
-};
+      _listener = fn;
+  }
+}

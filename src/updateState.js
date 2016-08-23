@@ -11,15 +11,15 @@
  * @param {boolean} force Force the updates, skips the intersection logic
  */
 
-import { listener } from './listener';
-import { setState, store } from './Store';
+import Listener from './listener';
+import Store from './Store';
 import { checkForUnmappedUpdates } from './Warnings';
 
 let pendingUpdate = false;
 let updatePaths = [];
 
 export default function updateState(
-  mapStateToProps:Object,
+  mapStateToProps:Function,
   stateUpdateObject:Object,
   componentName:string,
 ) : void {
@@ -44,7 +44,7 @@ export default function updateState(
     );
 
     // optimistically update our store
-    setState(
+    Store.setState(
       mapStateToProps,
       stateKeyToUpdate,
       stateUpdateObject[stateKeyToUpdate]
@@ -58,11 +58,11 @@ export default function updateState(
    */
   if (emitListener && !pendingUpdate) {
     pendingUpdate = true;
-    requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       pendingUpdate = false;
 
-      listener(
-        { ...store },
+      Listener.getListener()(
+        { ...Store.getState() },
         updatePaths
       );
       updatePaths = [];

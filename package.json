@@ -11,7 +11,8 @@
     "build:watch:demos": "webpack --watch --config demos/webpack.config.js",
     "build": "babel src --out-dir lib --ignore tests",
     "test": "jest",
-    "upload-coverage": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc"
+    "upload-coverage": "./node_modules/codecov/bin/codecov -t eb05c6f3-2078-4888-b119-69c3ade9c6dc",
+    "flow": "flow"
   },
   "files": [
     "src",
@@ -49,6 +50,7 @@
     "estraverse-fb": "^1.3.1",
     "express": "^4.13.4",
     "extract-text-webpack-plugin": "^1.0.1",
+    "flow-bin": "^0.31.1",
     "glob": "^7.0.3",
     "istanbul": "^0.4.0",
     "jasmine-enzyme": "^1.0.0",

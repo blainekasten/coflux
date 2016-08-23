@@ -28,7 +28,7 @@ export default wrap(Email, {
     const id = pathSplits[pathSplits.length - 1];
 
     return {
-      email: `emails.{id: ${id}}`,
+      email: `emails[0]`,
     };
   },
 });

@@ -1,12 +1,35 @@
+/*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
+ * @providesModule bindActions
+ * @flow
+ */
+
 import React, { PropTypes } from 'react';
 import crawlObject from 'object-crawl';
 import bindActions from './bindActions';
+import type { ActionBindings } from './bindActions';
+
+type Props = {
+  actions:Object,
+  mapStateToProps:Function,
+  Component:Function,
+  componentProps:Object
+};
+
+type Context = {
+  state: Object,
+  updatePaths: Array<string>,
+};
+
 
 // bind actions correctly
 export default class CofluxContainer extends React.Component {
   static propTypes = {
     actions: PropTypes.object,
-    propsForComponent: PropTypes.object,
     mapStateToProps: PropTypes.func,
     Component: PropTypes.func,
     componentProps: PropTypes.object,
@@ -17,7 +40,9 @@ export default class CofluxContainer extends React.Component {
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
-  constructor(props, context) : void {
+  boundActions:ActionBindings;
+
+  constructor(props:Props, context:Context) : void {
     super(props, context);
 
     const { actions } = props;
@@ -27,7 +52,11 @@ export default class CofluxContainer extends React.Component {
   /*
    * This is the engine behind 'data driven escape renders'
    */
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
+  shouldComponentUpdate(
+    nextProps:Props,
+    nextState:void,
+    nextContext:Context,
+  ) : boolean {
     const { updatePaths } = nextContext;
     const { children } = this.props.componentProps;
     const treeDependencies = this.props.Component.childDependencies(this.props.Component, children);
@@ -92,4 +121,3 @@ export default class CofluxContainer extends React.Component {
     );
   }
 }
-

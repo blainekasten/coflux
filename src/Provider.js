@@ -1,9 +1,31 @@
 /*
+ * Copyright 2016 Blaine Kasten
+ * All rights reserved.
+ *
+ * Licensed under the MIT License.
+ *
+ * @providesModule Provider
  * @flow
  */
+
 import React, { PropTypes, Children } from 'react';
-import { listen } from './listener';
-import { injectStore } from './Store';
+import Listener from './listener';
+import Store from './Store';
+
+type Props = {
+  children: Array<React.DOM> | React.DOM,
+  store: Object,
+};
+
+type State = {
+  applicationState: Object,
+  updatePaths: Array<string>,
+};
+
+type Context = {
+  state: Object,
+  updatePaths: Array<string>,
+};
 
 export default class Provider extends React.Component {
   static propTypes = {
@@ -16,26 +38,26 @@ export default class Provider extends React.Component {
     updatePaths: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
-  constructor(props) {
+  constructor(props:Props) {
     super(props);
 
-    const state = injectStore(this.props.store);
+    this.state.applicationState = Store.injectStore(this.props.store);
 
-    this.state = {
-      state,
-      updatePaths: [],
-    };
-
-    listen((storeUpdate, updatePaths) => {
-      this.setState({ updatePaths, store: storeUpdate });
-    });
+    Listener.listen(
+      (applicationState, updatePaths) => this.setState({ applicationState, updatePaths })
+    );
   }
 
-  getChildContext():Object {
-    const { state, updatePaths } = this.state;
+  state:State = {
+    applicationState: {},
+    updatePaths: [],
+  };
+
+  getChildContext() : Context {
+    const { applicationState, updatePaths } = this.state;
 
     return {
-      state,
+      state: applicationState,
       updatePaths,
     };
   }

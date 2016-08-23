@@ -13,13 +13,15 @@ var webpack = require('webpack');
 var path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const extractCss = new ExtractTextPlugin('main.css');
+
 
 module.exports = {
   context: __dirname + '/src',
 
   entry: './index',
   output: {
-    filename: '[name]',
+    filename: 'index.js',
 
     // We want to save the bundle in the same directory as the other JS.
     path: __dirname + '/build',
@@ -34,8 +36,9 @@ module.exports = {
   // The 'module' and 'loaders' options tell webpack to use loaders.
   // @see http://webpack.github.io/docs/using-loaders.html
   module: modules(),
+
   plugins: [
-    new ExtractTextPlugin('[name].css'),
+    extractCss,
   ],
 
   resolve: {
@@ -49,7 +52,7 @@ module.exports = {
 function modules(){
   return {
     loaders: [
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=[local]') },
+      { test: /\.css$/, loader: extractCss.extract(['style-loader', 'css-loader?localIdentName=[local]']) },
       { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
     ]
   };
