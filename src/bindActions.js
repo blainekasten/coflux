@@ -9,6 +9,7 @@
  */
 
 import updateState from './updateState';
+import DevTools from './DevTools';
 
 export type ActionFn = (stateSlice:Object, nextFn:Function, ...args:any) => Object
 
@@ -21,9 +22,17 @@ export default function bindActions(
 ) : Object {
   const boundActions = {};
 
-  function updateStateCallback(updateObject:Object) : any {
+  function updateStateCallback(actionName:string, updateObject:Object) : any {
+    const mapStateToProps = this.props.mapStateToProps.bind(null, this.context.state);
+
+
+    DevTools.send(this.name() + '#' + actionName, {
+      mappedProps: mapStateToProps(),
+      update: updateObject,
+    });
+
     return updateState(
-      this.props.mapStateToProps.bind(null, this.context.state),
+      mapStateToProps,
       updateObject,
       this.name(),
     );
@@ -33,7 +42,7 @@ export default function bindActions(
     return (...args) =>
       actions[action](
         { ...this.propsForComponent() },
-        updateStateCallback.bind(this),
+        updateStateCallback.bind(this, action),
         ...args,
       );
   }

@@ -11,6 +11,7 @@
 import React, { PropTypes, Children } from 'react';
 import Listener from './listener';
 import Store from './Store';
+import DevTools from './DevTools';
 
 type Props = {
   children: Array<React.DOM> | React.DOM,
@@ -47,6 +48,12 @@ export default class Provider extends React.Component {
       (applicationState, updatePaths) => this.setState({ applicationState, updatePaths })
     );
   }
+
+  componentWillMount() {
+    DevTools.connect(this.state.applicationState);
+  }
+
+  componentWillUnmount = DevTools.disconnect;
 
   state:State = {
     applicationState: {},
