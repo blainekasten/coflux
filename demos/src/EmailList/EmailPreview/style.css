@@ -11,3 +11,7 @@
 :local(.focusedEmail_message) {
   background: lightgray;
 }
+
+:local(.foo) {
+  color: red;
+}
