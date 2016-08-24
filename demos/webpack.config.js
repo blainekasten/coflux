@@ -13,47 +13,27 @@ var webpack = require('webpack');
 var path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const extractCss = new ExtractTextPlugin('main.css');
-
-
 module.exports = {
   context: __dirname + '/src',
-
-  entry: './index',
+  entry: {
+    index: './index',
+  },
   output: {
-    filename: 'index.js',
-
-    // We want to save the bundle in the same directory as the other JS.
+    filename: '[name].js',
     path: __dirname + '/build',
   },
-
-  // Turns on source maps
-  // Prefix with a '#' to squash the FF warnings that say:
-  // 'Using //@ to indicate sourceMappingURL pragmas is deprecated.
-  // Use //# instead'
-  //devtool: '#eval-source-map',
-
-  // The 'module' and 'loaders' options tell webpack to use loaders.
-  // @see http://webpack.github.io/docs/using-loaders.html
-  module: modules(),
-
+  module: {
+    loaders: [
+      { test: /\.css$/, loader: ExtractTextPlugin.extract({fallbackLoader: 'style', loader: ['css-loader?localIdentName=[local]']}) },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
+    ]
+  },
   plugins: [
-    extractCss,
+    new ExtractTextPlugin({filename: 'main.css', allChunks: true})
   ],
-
   resolve: {
     alias: {
       'coflux': path.resolve(__dirname, '../src/index.js'),
     }
   }
 };
-
-
-function modules(){
-  return {
-    loaders: [
-      { test: /\.css$/, loader: extractCss.extract(['style-loader', 'css-loader?localIdentName=[local]']) },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-    ]
-  };
-}
