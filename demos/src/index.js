@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import EmailApp from './EmailApp';
 import EmailList from './EmailList';
 import Email from './Email';
-import form from './style2.css';
 
 // must have a default store
 // would be awesome to integrate with webpack and flow
